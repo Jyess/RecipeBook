@@ -21,7 +21,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -40,7 +40,7 @@
                 android:text="Temps de préparation" />
 
             <TextView
-                android:id="@+id/first"
+                android:id="@+id/time"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -59,7 +59,7 @@
                 android:text="Nombre de personnes" />
 
             <TextView
-                android:id="@+id/last"
+                android:id="@+id/servings"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"

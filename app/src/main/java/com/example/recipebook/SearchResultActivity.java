@@ -1,5 +1,6 @@
 package com.example.recipebook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -30,16 +31,23 @@ public class SearchResultActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private ListView listView;
 
-    private static final String API_URL = "https://randomuser.me/api/?results=10";
-    private static final String API_KEY = "abc";
+    private static final String API_URL = "https://api.spoonacular.com/recipes/search?query=";
+    private static final String API_KEY = "0d1c9f44adfb48bb9941078b17913c00";
+    private String URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
 
+        Intent intent = getIntent();
+        String searchRequest = intent.getStringExtra("query");
+
+        URL = API_URL + searchRequest + "&apiKey=" + API_KEY;
+        Log.i(TAG, "URL : " + URL);
+
         requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -47,33 +55,42 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 try {
                     JSONObject json = new JSONObject(response);
-                    JSONArray array = json.getJSONArray("results");
+                    JSONArray results = json.getJSONArray("results");
 
                     List<Map<String,String>> dataList = new ArrayList<>(0);
 
                     Map<String, String> dataItem;
 
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject item = array.getJSONObject(i);
-                        JSONObject itemName = item.getJSONObject("name");
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject item = results.getJSONObject(i);
 
-                        String first = itemName.getString("first");
-                        String last = itemName.getString("last");
+                        String title = item.getString("title");
+                        String time = item.getString("readyInMinutes");
+                        String servings = item.getString("servings");
 
                         dataItem = new HashMap<>(0);
-                        dataItem.put("first", first);
-                        dataItem.put("last", last);
+                        dataItem.put("title", title);
+                        dataItem.put("time", time);
+                        dataItem.put("servings", servings);
 
                         dataList.add(dataItem);
 
-                        Log.i(TAG, "User : " + itemName.getString("first") + " " + itemName.getString("last"));
+                        Log.i(TAG, "OK");
                     }
 
                     SimpleAdapter sa = new SimpleAdapter(SearchResultActivity.this,
                             dataList,
                             R.layout.recipe_item,
-                            new String[]{"first","last"},
-                            new int[]{R.id.first, R.id.last}
+                            new String[] {
+                                    "title",
+                                    "time",
+                                    "servings"
+                                },
+                            new int[] {
+                                    R.id.title,
+                                    R.id.time,
+                                    R.id.servings
+                                }
                     );
 
                     listView = findViewById(R.id.listView);

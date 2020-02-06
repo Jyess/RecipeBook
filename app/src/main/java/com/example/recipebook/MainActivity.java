@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -28,19 +29,23 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    public String inputUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button searchBtn = findViewById(R.id.searchBtn);
-        final String input = searchBtn.getText().toString();
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText inputField = findViewById(R.id.inputRecipe);
+                inputUser = inputField.getText().toString();
+
                 Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
-                intent.putExtra("DATA", input);
+                intent.putExtra("query", inputUser);
                 startActivity(intent);
             }
         });
