@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -79,6 +82,15 @@ public class SearchResultActivity extends AppCompatActivity {
 
                     listView = findViewById(R.id.listView);
                     listView.setAdapter(sa);
+
+                    findViewById(R.id.loading).setVisibility(View.GONE);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Toast.makeText(SearchResultActivity.this, "test", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
                 } catch (JSONException e) {
                     Log.e(TAG, "Error while parsing data : " + e);
