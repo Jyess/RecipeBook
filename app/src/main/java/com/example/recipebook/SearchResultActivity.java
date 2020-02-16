@@ -1,10 +1,12 @@
 package com.example.recipebook;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,8 +33,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private ListView listView;
 
-    private static final String API_URL = "https://api.spoonacular.com/recipes/search?query=";
-    private static final String API_KEY = "0d1c9f44adfb48bb9941078b17913c00";
+    private static final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
     private String URL;
 
     @Override
@@ -43,63 +44,47 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String searchRequest = intent.getStringExtra("query");
 
-        URL = API_URL + searchRequest + "&apiKey=" + API_KEY;
-        Log.i(TAG, "URL : " + URL);
+        URL = API_URL + searchRequest;
 
         requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "Response : " + response);
-
                 try {
                     JSONObject json = new JSONObject(response);
-                    JSONArray results = json.getJSONArray("results");
+                    JSONArray results = json.getJSONArray("meals");
 
-                    List<Map<String,String>> dataList = new ArrayList<>(0);
+                    List<Map<String, String>> dataList = new ArrayList<>(0);
 
                     Map<String, String> dataItem;
 
                     for (int i = 0; i < results.length(); i++) {
                         JSONObject item = results.getJSONObject(i);
 
-                        String title = item.getString("title");
-                        String time = item.getString("readyInMinutes");
-                        String servings = item.getString("servings");
+                        String title = item.getString("strMeal");
 
                         dataItem = new HashMap<>(0);
                         dataItem.put("title", title);
-                        dataItem.put("time", time);
-                        dataItem.put("servings", servings);
 
                         dataList.add(dataItem);
-
-                        Log.i(TAG, "OK");
                     }
 
                     SimpleAdapter sa = new SimpleAdapter(SearchResultActivity.this,
                             dataList,
                             R.layout.recipe_item,
-                            new String[] {
-                                    "title",
-                                    "time",
-                                    "servings"
-                                },
-                            new int[] {
-                                    R.id.title,
-                                    R.id.time,
-                                    R.id.servings
-                                }
+                            new String[]{"title"},
+                            new int[]{R.id.title}
                     );
 
                     listView = findViewById(R.id.listView);
                     listView.setAdapter(sa);
 
-                } catch(JSONException e) {
-                    Log.e(TAG, "Error : " + e);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error while parsing data : " + e);
                 }
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

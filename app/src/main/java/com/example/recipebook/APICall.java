@@ -21,8 +21,6 @@
 //    private HttpURLConnection huc;
 //    private InputStream responseStream;
 //
-//    private static final API_URL = "";
-//    private static final API_KEY = "";
 //    private static final String TAG = IUTAsyncTask.class.getCanonicalName();
 //
 //    private Context context;
