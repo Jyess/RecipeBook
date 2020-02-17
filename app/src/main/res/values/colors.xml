@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="meat">#e74c3c</color>
+    <color name="meal">#9b59b6</color>
+    <color name="misc">#bdc3c7</color>
+    <color name="fish">#3498db</color>
+    <color name="green">#2ecc71</color>
+    <color name="pasta">#f1c40f</color>
+    <color name="country">#34495e</color>
 </resources>
