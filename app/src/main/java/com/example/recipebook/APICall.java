@@ -1,7 +1,6 @@
 package com.example.recipebook;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -11,31 +10,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-public class APICall extends AsyncTask<String, String, List<Map<String, String>>> {
+public class APICall extends AsyncTask<String, Void, String> {
 
     private static final String TAG = APICall.class.getCanonicalName();
 
@@ -45,31 +35,31 @@ public class APICall extends AsyncTask<String, String, List<Map<String, String>>
     private Context context;
     private ProgressBar loading;
     private ListView listView;
-    private TextView category;
+    private TextView numberResults;
 
-    public APICall(Context context, ProgressBar loading, ListView listView, TextView category) {
+    private List<String> titles = new ArrayList<>();
+    private List<String> categories = new ArrayList<>();
+    private List<String> origins = new ArrayList<>();
+
+    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults) {
         this.context = context;
         this.loading = loading;
         this.listView = listView;
-        this.category = category;
+        this.numberResults = numberResults;
     }
 
     protected void onPreExecute() {
         super.onPreExecute();
+        this.numberResults.setVisibility(View.GONE);
         this.loading.setVisibility(View.VISIBLE);
     }
 
-    protected List<Map<String, String>> doInBackground(String... urls) {
-        List<Map<String, String>> dataList = new ArrayList<>();
+    protected String doInBackground(String... urls) {
         String response = doSimpleGetRequest(this.context, urls[0]);
 
         try {
             JSONObject json = new JSONObject(response);
             JSONArray results = json.getJSONArray("meals");
-
-            dataList = new ArrayList<>(0);
-
-            Map<String, String> dataItem;
 
             for (int i = 0; i < results.length(); i++) {
                 JSONObject item = results.getJSONObject(i);
@@ -78,43 +68,44 @@ public class APICall extends AsyncTask<String, String, List<Map<String, String>>
                 String category = item.getString("strCategory");
                 String origin = item.getString("strArea");
 
-                dataItem = new HashMap<>(0);
-                dataItem.put("title", title);
-                dataItem.put("category", category);
-                dataItem.put("origin", origin);
-
-                dataList.add(dataItem);
+                titles.add(title);
+                categories.add(category);
+                origins.add(origin);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return dataList;
+        return "";
     }
 
-    protected void onPostExecute(List<Map<String, String>> dataList) {
-        SimpleAdapter sa = new SimpleAdapter(this.context,
-                dataList,
-                R.layout.recipe_item,
-                new String[]{"title", "category", "origin"},
-                new int[]{R.id.title, R.id.category, R.id.origin}
-        );
-
+    protected void onPostExecute(String response) {
+        RecipeAdapter sa = new RecipeAdapter(context, this.titles, this.categories, this.origins);
         this.listView.setAdapter(sa);
 
         this.loading.setVisibility(View.GONE);
 
+        this.numberResults.setVisibility(View.VISIBLE);
+        this.numberResults.setText(String.valueOf(this.listView.getCount()));
+
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, "test", Toast.LENGTH_LONG).show();
+                for (int i = 0; i < listView.getCount(); i++) {
+                    if (position == 0) {
+                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
-
-//        GradientDrawable d = (GradientDrawable) this.category.getBackground().mutate();
-//        d.setColor(this.context.getResources().getColor(R.color.pasta));
     }
 
+    /**
+     * Fait une requête get vers un serveur.
+     * @param context   le contexte de l'appelant
+     * @param url       l'url vers lequel on effectue la requête get
+     * @return          la réponse du serveur
+     */
     private String doSimpleGetRequest(Context context, String url) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
@@ -142,6 +133,11 @@ public class APICall extends AsyncTask<String, String, List<Map<String, String>>
         return null;
     }
 
+    /**
+     * Convertit un stream en une chaîne de caractères.
+     * @param input     un stream
+     * @return          une chaîne de caractères
+     */
     public static String convertStreamToString(InputStream input) {
         Scanner s = new Scanner(input).useDelimiter("\n");
         return s.hasNext() ? s.next() : "";
