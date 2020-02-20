@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RecipeBook</string>
+    <string name="numResults">Nombre de résultats : </string>
+    <string name="search">Rechercher</string>
+    <string name="recipeName">Nom de la recette</string>
+    <string name="title_activity_temp">Temp</string>
 </resources>

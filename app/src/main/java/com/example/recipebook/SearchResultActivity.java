@@ -12,14 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SearchResultActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getCanonicalName();
-
-    private ListView listView;
-    private ProgressBar loading;
-    private TextView category;
-    private TextView numberResults;
-
     private static final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
-    private String URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +20,13 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.search_result);
 
         Intent intent = getIntent();
-        String searchRequest = intent.getStringExtra("query");
+        String request = intent.getStringExtra("query");
 
-        URL = API_URL + searchRequest;
+        String URL = API_URL + request;
 
-        loading = findViewById(R.id.loading);
-        listView = findViewById(R.id.listView);
-        category = findViewById(R.id.category);
-        numberResults = findViewById(R.id.numberResults);
+        ProgressBar loading = findViewById(R.id.loading);
+        ListView listView = findViewById(R.id.listView);
+        TextView numberResults = findViewById(R.id.numberResults);
 
         new APICall(this, loading, listView, numberResults).execute(URL);
     }

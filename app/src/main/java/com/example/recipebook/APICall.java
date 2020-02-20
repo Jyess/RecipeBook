@@ -80,14 +80,18 @@ public class APICall extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String response) {
+        //la liste
         RecipeAdapter sa = new RecipeAdapter(context, this.titles, this.categories, this.origins);
         this.listView.setAdapter(sa);
 
+        //enlève l'icone de chargement
         this.loading.setVisibility(View.GONE);
 
+        //affiche le nombre de résultats
         this.numberResults.setVisibility(View.VISIBLE);
         this.numberResults.setText(String.valueOf(this.listView.getCount()));
 
+        //définit les listeners pour chaque élément de la liste
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -130,7 +134,7 @@ public class APICall extends AsyncTask<String, Void, String> {
             Log.e(TAG, "Error ");
         }
 
-        return null;
+        return "";
     }
 
     /**
@@ -138,7 +142,7 @@ public class APICall extends AsyncTask<String, Void, String> {
      * @param input     un stream
      * @return          une chaîne de caractères
      */
-    public static String convertStreamToString(InputStream input) {
+    private static String convertStreamToString(InputStream input) {
         Scanner s = new Scanner(input).useDelimiter("\n");
         return s.hasNext() ? s.next() : "";
     }
