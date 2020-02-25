@@ -2,6 +2,7 @@ package com.example.recipebook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,20 +20,16 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
 
-        String URL = API_URL;
-
         Intent intent = getIntent();
         String request = intent.getStringExtra("query");
-        if (request == null) request = "";
+
+        Log.e(TAG, "onCreate: " + request);
+
+        String URL = API_URL + request;
 
         ProgressBar loading = findViewById(R.id.loading);
         ListView listView = findViewById(R.id.listView);
         TextView numberResults = findViewById(R.id.numberResults);
-
-        //s'il n'y a pas de requete, on affiche les resultats de base
-        if (!request.isEmpty()) {
-            URL += request;
-        }
 
         new APICall(this, loading, listView, numberResults).execute(URL);
     }
