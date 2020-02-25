@@ -21,15 +21,17 @@ public class SearchResultActivity extends AppCompatActivity {
 
         String URL = API_URL;
 
-        if (true) {
-            Intent intent = getIntent();
-            String request = intent.getStringExtra("query");
+        Intent intent = getIntent();
+        String request = intent.getStringExtra("query");
+        if (request == null) request = "";
 
+        ProgressBar loading = findViewById(R.id.loading);
+        ListView listView = findViewById(R.id.listView);
+        TextView numberResults = findViewById(R.id.numberResults);
+
+        //s'il n'y a pas de requete, on affiche les resultats de base
+        if (!request.isEmpty()) {
             URL += request;
-
-            ProgressBar loading = findViewById(R.id.loading);
-            ListView listView = findViewById(R.id.listView);
-            TextView numberResults = findViewById(R.id.numberResults);
         }
 
         new APICall(this, loading, listView, numberResults).execute(URL);

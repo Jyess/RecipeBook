@@ -11,4 +11,5 @@
     <color name="green">#2ecc71</color>
     <color name="pasta">#f1c40f</color>
     <color name="country">#34495e</color>
+    <color name="inactive">#95a5a6</color>
 </resources>
