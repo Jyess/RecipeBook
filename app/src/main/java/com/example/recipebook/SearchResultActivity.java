@@ -19,14 +19,18 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
 
-        Intent intent = getIntent();
-        String request = intent.getStringExtra("query");
+        String URL = API_URL;
 
-        String URL = API_URL + request;
+        if (true) {
+            Intent intent = getIntent();
+            String request = intent.getStringExtra("query");
 
-        ProgressBar loading = findViewById(R.id.loading);
-        ListView listView = findViewById(R.id.listView);
-        TextView numberResults = findViewById(R.id.numberResults);
+            URL += request;
+
+            ProgressBar loading = findViewById(R.id.loading);
+            ListView listView = findViewById(R.id.listView);
+            TextView numberResults = findViewById(R.id.numberResults);
+        }
 
         new APICall(this, loading, listView, numberResults).execute(URL);
     }
