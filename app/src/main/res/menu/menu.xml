@@ -12,10 +12,4 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:clickable="true"
         android:title="Rechercher" />
-
-    <item
-        android:id="@+id/fav"
-        android:icon="@drawable/ic_bookmark_black_24dp"
-        android:clickable="true"
-        android:title="Favoris" />
 </menu>

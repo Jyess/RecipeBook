@@ -96,8 +96,8 @@ public class APICall extends AsyncTask<String, Void, String> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 for (int i = 0; i < listView.getCount(); i++) {
-                    if (position == 0) {
-                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    if (position == i) {
+                        Toast.makeText(context, "" + listView.getSelectedItem(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

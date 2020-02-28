@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.search:
                         selectedFragment = new SearchFragment();
                         break;
-                    case R.id.fav:
-                        selectedFragment = new FavoriteFragment();
-                        break;
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
