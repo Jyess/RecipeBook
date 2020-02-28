@@ -3,6 +3,7 @@ package com.example.recipebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,14 +24,13 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String request = intent.getStringExtra("query");
 
-        Log.e(TAG, "onCreate: " + request);
-
         String URL = API_URL + request;
 
         ProgressBar loading = findViewById(R.id.loading);
         ListView listView = findViewById(R.id.listView);
         TextView numberResults = findViewById(R.id.numberResults);
+        TextView requestHolder = findViewById(R.id.query);
 
-        new APICall(this, loading, listView, numberResults).execute(URL);
+        new APICall(this, loading, listView, numberResults, requestHolder, request).execute(URL);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,8 +24,14 @@ public class HomeFragment extends Fragment {
         ProgressBar loading = viewHome.findViewById(R.id.loading);
         ListView listView = viewHome.findViewById(R.id.listView);
         TextView numberResults = viewHome.findViewById(R.id.numberResults);
+        TextView requestHolder = viewHome.findViewById(R.id.query);
 
-        new APICall(viewHome.getContext(), loading, listView, numberResults).execute(URL);
+        LinearLayout searchLayout = viewHome.findViewById(R.id.search_layout);
+        LinearLayout resultLayout = viewHome.findViewById(R.id.result_layout);
+        searchLayout.setVisibility(View.GONE);
+        resultLayout.setVisibility(View.GONE);
+
+        new APICall(getContext(), loading, listView, numberResults, requestHolder, "").execute(URL);
 
         return viewHome;
     }

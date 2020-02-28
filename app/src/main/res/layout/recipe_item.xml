@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_marginVertical="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="8dp"
+        android:scaleType="centerCrop"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
@@ -19,36 +20,42 @@
         android:id="@+id/hidden_id"
         android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="20dp"
-        android:text="Titre de la recette" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/origin"
-        android:textColor="@android:color/black"
-        android:layout_marginHorizontal="8dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="3dp"
-        android:textStyle="italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pays" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="20dp"
+            android:text="Titre de la recette" />
 
-    <TextView
-        android:id="@+id/category"
-        android:layout_marginHorizontal="8dp"
-        android:background="@drawable/radius_cat"
-        android:textColor="@android:color/white"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="3dp"
-        android:radius="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Catégorie" />
+        <TextView
+            android:id="@+id/origin"
+            android:textColor="@android:color/black"
+            android:textStyle="italic|bold"
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pays" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius_cat"
+            android:textColor="@android:color/white"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:layout_marginBottom="5dp"
+            android:text="Catégorie" />
+
+    </LinearLayout>
 </LinearLayout>

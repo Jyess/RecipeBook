@@ -36,16 +36,20 @@ public class APICall extends AsyncTask<String, Void, String> {
     private ProgressBar loading;
     private ListView listView;
     private TextView numberResults;
+    private String request;
+    private TextView requestHolder;
 
     private List<String> titles = new ArrayList<>();
     private List<String> categories = new ArrayList<>();
     private List<String> origins = new ArrayList<>();
 
-    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults) {
+    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults, TextView requestHolder, String request) {
         this.context = context;
         this.loading = loading;
         this.listView = listView;
         this.numberResults = numberResults;
+        this.requestHolder = requestHolder;
+        this.request = request;
     }
 
     protected void onPreExecute() {
@@ -87,9 +91,11 @@ public class APICall extends AsyncTask<String, Void, String> {
         //enlève l'icone de chargement
         this.loading.setVisibility(View.GONE);
 
-        //affiche le nombre de résultats
+        //affiche le nombre de résultats et la recherche
         this.numberResults.setVisibility(View.VISIBLE);
         this.numberResults.setText(String.valueOf(this.listView.getCount()));
+
+        this.requestHolder.setText(this.request);
 
         //définit les listeners pour chaque élément de la liste
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
