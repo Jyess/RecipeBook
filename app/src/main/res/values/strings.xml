@@ -4,4 +4,6 @@
     <string name="search">Rechercher</string>
     <string name="recipeName">Nom de la recette</string>
     <string name="results">Votre recherche :</string>
+    <string name="home">Accueil</string>
+    <string name="legend">Légende</string>
 </resources>

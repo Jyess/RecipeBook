@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,18 +39,21 @@ public class APICall extends AsyncTask<String, Void, String> {
     private TextView numberResults;
     private String request;
     private TextView requestHolder;
+    private ImageView image;
 
+    private List<String> images = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
     private List<String> categories = new ArrayList<>();
     private List<String> origins = new ArrayList<>();
 
-    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults, TextView requestHolder, String request) {
+    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults, TextView requestHolder, String request, ImageView image) {
         this.context = context;
         this.loading = loading;
         this.listView = listView;
         this.numberResults = numberResults;
         this.requestHolder = requestHolder;
         this.request = request;
+        this.image = image;
     }
 
     protected void onPreExecute() {
@@ -68,10 +72,12 @@ public class APICall extends AsyncTask<String, Void, String> {
             for (int i = 0; i < results.length(); i++) {
                 JSONObject item = results.getJSONObject(i);
 
+                String image = item.getString("strMealThumb");
                 String title = item.getString("strMeal");
                 String category = item.getString("strCategory");
                 String origin = item.getString("strArea");
 
+                images.add(image);
                 titles.add(title);
                 categories.add(category);
                 origins.add(origin);
@@ -85,7 +91,7 @@ public class APICall extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String response) {
         //la liste
-        RecipeAdapter sa = new RecipeAdapter(context, this.titles, this.categories, this.origins);
+        RecipeAdapter sa = new RecipeAdapter(context, this.images, this.titles, this.categories, this.origins);
         this.listView.setAdapter(sa);
 
         //enlève l'icone de chargement
@@ -95,6 +101,7 @@ public class APICall extends AsyncTask<String, Void, String> {
         this.numberResults.setVisibility(View.VISIBLE);
         this.numberResults.setText(String.valueOf(this.listView.getCount()));
 
+        //affiche la requete faite par l'utilisateur (sa recherche)
         this.requestHolder.setText(this.request);
 
         //définit les listeners pour chaque élément de la liste

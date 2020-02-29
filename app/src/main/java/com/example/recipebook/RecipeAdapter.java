@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +19,15 @@ import java.util.List;
 public class RecipeAdapter extends ArrayAdapter<String> {
 
     private Context context;
+    private List<String> image;
     private List<String> title;
     private List<String> category;
     private List<String> origin;
 
-    public RecipeAdapter(@NonNull Context context, List<String> title, List<String> category, List<String> origin) {
+    public RecipeAdapter(@NonNull Context context, List<String> image, List<String> title, List<String> category, List<String> origin) {
         super(context, R.layout.recipe_item, R.id.title, title);
         this.context = context;
+        this.image = image;
         this.title = title;
         this.category = category;
         this.origin = origin;
@@ -36,10 +39,12 @@ public class RecipeAdapter extends ArrayAdapter<String> {
         LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item = layoutInflater.inflate(R.layout.recipe_item, parent, false);
 
+        ImageView image = item.findViewById(R.id.imageView);
         TextView title = item.findViewById(R.id.title);
         TextView category = item.findViewById(R.id.category);
         TextView origin = item.findViewById(R.id.origin);
 
+        new LoadImage(image).execute(this.image.get(position));
         title.setText(this.title.get(position));
         category.setText(this.category.get(position));
         origin.setText(this.origin.get(position));

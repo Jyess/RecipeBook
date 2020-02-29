@@ -5,11 +5,11 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_home_black_24dp"
         android:clickable="true"
-        android:title="Accueil" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_black_24dp"
         android:clickable="true"
-        android:title="Rechercher" />
+        android:title="@string/search" />
 </menu>

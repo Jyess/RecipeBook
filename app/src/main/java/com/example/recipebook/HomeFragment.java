@@ -2,8 +2,11 @@ package com.example.recipebook;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -30,9 +33,15 @@ public class HomeFragment extends Fragment {
         LinearLayout resultLayout = viewHome.findViewById(R.id.result_layout);
         searchLayout.setVisibility(View.GONE);
         resultLayout.setVisibility(View.GONE);
+        ImageView image = viewHome.findViewById(R.id.imageView);
 
-        new APICall(getContext(), loading, listView, numberResults, requestHolder, "").execute(URL);
+        new APICall(getContext(), loading, listView, numberResults, requestHolder, "", image).execute(URL);
 
         return viewHome;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.options, menu);
     }
 }

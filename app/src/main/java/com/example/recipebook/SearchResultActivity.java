@@ -1,14 +1,18 @@
 package com.example.recipebook;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -30,7 +34,8 @@ public class SearchResultActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
         TextView numberResults = findViewById(R.id.numberResults);
         TextView requestHolder = findViewById(R.id.query);
+        ImageView image = findViewById(R.id.imageView);
 
-        new APICall(this, loading, listView, numberResults, requestHolder, request).execute(URL);
+        new APICall(this, loading, listView, numberResults, requestHolder, request, image).execute(URL);
     }
 }
