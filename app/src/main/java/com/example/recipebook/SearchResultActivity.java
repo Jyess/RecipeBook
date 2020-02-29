@@ -36,6 +36,6 @@ public class SearchResultActivity extends AppCompatActivity {
         TextView requestHolder = findViewById(R.id.query);
         ImageView image = findViewById(R.id.imageView);
 
-        new APICall(this, loading, listView, numberResults, requestHolder, request, image).execute(URL);
+        new APICall(this, loading, listView, numberResults, request, requestHolder, image).execute(URL, "search");
     }
 }

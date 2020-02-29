@@ -21,21 +21,25 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        //un appel à l'API avec un paramètre 's' vide retourne une liste de recettes par défaut
         final String URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+
+        //pour avoir la view search_result
         View viewHome = inflater.inflate(R.layout.search_result, container, false);
 
         ProgressBar loading = viewHome.findViewById(R.id.loading);
         ListView listView = viewHome.findViewById(R.id.listView);
         TextView numberResults = viewHome.findViewById(R.id.numberResults);
         TextView requestHolder = viewHome.findViewById(R.id.query);
+        ImageView image = viewHome.findViewById(R.id.imageView);
 
+        //enlève les textes "votre recherche" et le nombre de résultats
         LinearLayout searchLayout = viewHome.findViewById(R.id.search_layout);
         LinearLayout resultLayout = viewHome.findViewById(R.id.result_layout);
         searchLayout.setVisibility(View.GONE);
         resultLayout.setVisibility(View.GONE);
-        ImageView image = viewHome.findViewById(R.id.imageView);
 
-        new APICall(getContext(), loading, listView, numberResults, requestHolder, "", image).execute(URL);
+        new APICall(getContext(), loading, listView, numberResults, "", requestHolder, image).execute(URL, "home");
 
         return viewHome;
     }

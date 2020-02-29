@@ -1,6 +1,7 @@
 package com.example.recipebook;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -30,7 +31,7 @@ public class APICall extends AsyncTask<String, Void, String> {
 
     private static final String TAG = APICall.class.getCanonicalName();
 
-    private HttpURLConnection huc;
+    private HttpURLConnection httpURLConnection;
     private InputStream responseStream;
 
     private Context context;
@@ -40,30 +41,39 @@ public class APICall extends AsyncTask<String, Void, String> {
     private String request;
     private TextView requestHolder;
     private ImageView image;
+    private String instructions;
 
-    private List<String> images = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
     private List<String> categories = new ArrayList<>();
     private List<String> origins = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
+    private List<String> ids = new ArrayList<>();
+    private List<String> ingredients = new ArrayList<>();
+    private List<String> measures = new ArrayList<>();
 
-    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults, TextView requestHolder, String request, ImageView image) {
+    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults, String request, TextView requestHolder, ImageView image) {
         this.context = context;
         this.loading = loading;
         this.listView = listView;
         this.numberResults = numberResults;
-        this.requestHolder = requestHolder;
         this.request = request;
+        this.requestHolder = requestHolder;
         this.image = image;
     }
 
     protected void onPreExecute() {
         super.onPreExecute();
-        this.numberResults.setVisibility(View.GONE);
+
+        //affiche l'icone de chargement
         this.loading.setVisibility(View.VISIBLE);
     }
 
     protected String doInBackground(String... urls) {
-        String response = doSimpleGetRequest(this.context, urls[0]);
+        String apiUrl = urls[0];
+        String source = urls[1];
+
+        //fait la requete vers l'api
+        String response = doSimpleGetRequest(this.context, apiUrl);
 
         try {
             JSONObject json = new JSONObject(response);
@@ -72,15 +82,37 @@ public class APICall extends AsyncTask<String, Void, String> {
             for (int i = 0; i < results.length(); i++) {
                 JSONObject item = results.getJSONObject(i);
 
-                String image = item.getString("strMealThumb");
-                String title = item.getString("strMeal");
-                String category = item.getString("strCategory");
-                String origin = item.getString("strArea");
+                //éléments basiques
+                String id = item.getString("idMeal"); //l'id  de la recette
+                String image = item.getString("strMealThumb"); //image  de la recette
+                String title = item.getString("strMeal"); //titre de la recette
+                String category = item.getString("strCategory"); //catégorie de la recette
+                String origin = item.getString("strArea"); //pays de la recette
 
+                //informations sur une recette
+                if (source.equals("info")) {
+                    this.instructions = item.getString("strInstructions"); //instructions de la recette
+
+                    for (int j = 1; j < 21; j++) {
+                        String ingredient = item.getString("strIngredient" + j);
+                        String measure = item.getString("strMeasure" + j);
+
+                        if (ingredient.length() > 0) {
+                            ingredients.add(ingredient);
+                        }
+
+                        if (measure.length() > 0) {
+                            measures.add(measure);
+                        }
+                    }
+                }
+
+                ids.add(id);
                 images.add(image);
                 titles.add(title);
                 categories.add(category);
                 origins.add(origin);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -90,8 +122,8 @@ public class APICall extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String response) {
-        //la liste
-        RecipeAdapter sa = new RecipeAdapter(context, this.images, this.titles, this.categories, this.origins);
+        //la liste des recettes avec ses composants
+        RecipeAdapter sa = new RecipeAdapter(context, this.ids, this.images, this.titles, this.categories, this.origins);
         this.listView.setAdapter(sa);
 
         //enlève l'icone de chargement
@@ -110,7 +142,9 @@ public class APICall extends AsyncTask<String, Void, String> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 for (int i = 0; i < listView.getCount(); i++) {
                     if (position == i) {
-                        Toast.makeText(context, "" + listView.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, RecipeInfo.class);
+                        intent.putExtra("id", ids.get(i));
+                        context.startActivity(intent);
                     }
                 }
             }
@@ -118,26 +152,26 @@ public class APICall extends AsyncTask<String, Void, String> {
     }
 
     /**
-     * Fait une requête get vers un serveur.
+     * Fait une requête GET vers un serveur.
      * @param context   le contexte de l'appelant
      * @param url       l'url vers lequel on effectue la requête get
      * @return          la réponse du serveur
      */
     private String doSimpleGetRequest(Context context, String url) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
-        if (ni != null && ni.isConnected()) {
+        if (networkInfo != null && networkInfo.isConnected()) {
             Uri uri = Uri.parse(url).buildUpon().build();
 
             try {
                 java.net.URL requestURL = new URL(uri.toString());
 
-                huc = (HttpURLConnection) requestURL.openConnection();
-                huc.setRequestMethod("GET");
-                huc.connect();
+                httpURLConnection = (HttpURLConnection) requestURL.openConnection();
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.connect();
 
-                responseStream = huc.getInputStream();
+                responseStream = httpURLConnection.getInputStream();
 
                 return convertStreamToString(responseStream);
             } catch(IOException e) {
