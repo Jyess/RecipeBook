@@ -3,7 +3,6 @@ package com.example.recipebook;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class RecipeAdapter extends ArrayAdapter<String> {
     private List<String> origin;
 
     public RecipeAdapter(@NonNull Context context, List<String> id, List<String> image, List<String> title, List<String> category, List<String> origin) {
-        super(context, R.layout.recipe_item, R.id.title, title);
+        super(context, R.layout.recipe_item, R.id.title_list, title);
         this.context = context;
         this.id = id;
         this.image = image;
@@ -43,7 +42,7 @@ public class RecipeAdapter extends ArrayAdapter<String> {
 
         TextView id = item.findViewById(R.id.recipe_id);
         ImageView image = item.findViewById(R.id.imageView);
-        TextView title = item.findViewById(R.id.title);
+        TextView title = item.findViewById(R.id.title_list);
         TextView category = item.findViewById(R.id.category);
         TextView origin = item.findViewById(R.id.origin);
 
@@ -53,32 +52,8 @@ public class RecipeAdapter extends ArrayAdapter<String> {
         category.setText(this.category.get(position));
         origin.setText(this.origin.get(position));
 
-        setBackgroundColor(category);
+        Util.setBackgroundColor(category, this.context);
 
         return item;
-    }
-
-    /**
-     * Modifie la couleur de la catégorie en fonction de son nom.
-     * @param category      le textview category
-     */
-    private void setBackgroundColor(TextView category) {
-        GradientDrawable d = (GradientDrawable) category.getBackground().mutate();
-        String categoryName = (String) category.getText();
-        Resources resources = this.context.getResources();
-
-        if (categoryName.equals("Beef") || categoryName.equals("Chicken") || categoryName.equals("Goat") || categoryName.equals("Lamb")  || categoryName.equals("Pork")) {
-            d.setColor(resources.getColor(R.color.meat));
-        } else if (categoryName.equals("Breakfast") || categoryName.equals("Dessert") || categoryName.equals("Side") || categoryName.equals("Starter")) {
-            d.setColor(resources.getColor(R.color.meal));
-        } else if (categoryName.equals("Miscellaneous")) {
-            d.setColor(resources.getColor(R.color.misc));
-        } else if (categoryName.equals("Seafood")) {
-            d.setColor(resources.getColor(R.color.fish));
-        } else if (categoryName.equals("Vegan") || categoryName.equals("Vegetarian")) {
-            d.setColor(resources.getColor(R.color.green));
-        } else if (categoryName.equals("Pasta")) {
-            d.setColor(resources.getColor(R.color.pasta));
-        }
     }
 }

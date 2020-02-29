@@ -6,4 +6,7 @@
     <string name="results">Votre recherche :</string>
     <string name="home">Accueil</string>
     <string name="legend">Légende</string>
+    <string name="alt_img">Photo de la recette</string>
+    <string name="instructions">Instructions :</string>
+    <string name="ingredients">Ingrédients :</string>
 </resources>

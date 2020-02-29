@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         searchLayout.setVisibility(View.GONE);
         resultLayout.setVisibility(View.GONE);
 
-        new APICall(getContext(), loading, listView, numberResults, "", requestHolder, image).execute(URL, "home");
+        new DisplayRecipes(getContext(), loading, listView, numberResults, "", requestHolder, image).execute(URL);
 
         return viewHome;
     }

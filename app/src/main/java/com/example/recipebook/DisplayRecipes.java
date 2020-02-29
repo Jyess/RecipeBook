@@ -27,12 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class APICall extends AsyncTask<String, Void, String> {
+public class DisplayRecipes extends AsyncTask<String, Void, String> {
 
-    private static final String TAG = APICall.class.getCanonicalName();
-
-    private HttpURLConnection httpURLConnection;
-    private InputStream responseStream;
+    private static final String TAG = DisplayRecipes.class.getCanonicalName();
 
     private Context context;
     private ProgressBar loading;
@@ -51,7 +48,7 @@ public class APICall extends AsyncTask<String, Void, String> {
     private List<String> ingredients = new ArrayList<>();
     private List<String> measures = new ArrayList<>();
 
-    public APICall(Context context, ProgressBar loading, ListView listView, TextView numberResults, String request, TextView requestHolder, ImageView image) {
+    public DisplayRecipes(Context context, ProgressBar loading, ListView listView, TextView numberResults, String request, TextView requestHolder, ImageView image) {
         this.context = context;
         this.loading = loading;
         this.listView = listView;
@@ -70,10 +67,9 @@ public class APICall extends AsyncTask<String, Void, String> {
 
     protected String doInBackground(String... urls) {
         String apiUrl = urls[0];
-        String source = urls[1];
 
         //fait la requete vers l'api
-        String response = doSimpleGetRequest(this.context, apiUrl);
+        String response = Util.getRequest(this.context, apiUrl);
 
         try {
             JSONObject json = new JSONObject(response);
@@ -88,24 +84,6 @@ public class APICall extends AsyncTask<String, Void, String> {
                 String title = item.getString("strMeal"); //titre de la recette
                 String category = item.getString("strCategory"); //catégorie de la recette
                 String origin = item.getString("strArea"); //pays de la recette
-
-                //informations sur une recette
-                if (source.equals("info")) {
-                    this.instructions = item.getString("strInstructions"); //instructions de la recette
-
-                    for (int j = 1; j < 21; j++) {
-                        String ingredient = item.getString("strIngredient" + j);
-                        String measure = item.getString("strMeasure" + j);
-
-                        if (ingredient.length() > 0) {
-                            ingredients.add(ingredient);
-                        }
-
-                        if (measure.length() > 0) {
-                            measures.add(measure);
-                        }
-                    }
-                }
 
                 ids.add(id);
                 images.add(image);
@@ -123,8 +101,8 @@ public class APICall extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String response) {
         //la liste des recettes avec ses composants
-        RecipeAdapter sa = new RecipeAdapter(context, this.ids, this.images, this.titles, this.categories, this.origins);
-        this.listView.setAdapter(sa);
+        RecipeAdapter recipeAdapter = new RecipeAdapter(context, this.ids, this.images, this.titles, this.categories, this.origins);
+        this.listView.setAdapter(recipeAdapter);
 
         //enlève l'icone de chargement
         this.loading.setVisibility(View.GONE);
@@ -149,48 +127,5 @@ public class APICall extends AsyncTask<String, Void, String> {
                 }
             }
         });
-    }
-
-    /**
-     * Fait une requête GET vers un serveur.
-     * @param context   le contexte de l'appelant
-     * @param url       l'url vers lequel on effectue la requête get
-     * @return          la réponse du serveur
-     */
-    private String doSimpleGetRequest(Context context, String url) {
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
-        if (networkInfo != null && networkInfo.isConnected()) {
-            Uri uri = Uri.parse(url).buildUpon().build();
-
-            try {
-                java.net.URL requestURL = new URL(uri.toString());
-
-                httpURLConnection = (HttpURLConnection) requestURL.openConnection();
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.connect();
-
-                responseStream = httpURLConnection.getInputStream();
-
-                return convertStreamToString(responseStream);
-            } catch(IOException e) {
-                Log.e(TAG, "Error while connecting to " + url, e);
-            }
-        } else {
-            Log.e(TAG, "Error ");
-        }
-
-        return "";
-    }
-
-    /**
-     * Convertit un stream en une chaîne de caractères.
-     * @param input     un stream
-     * @return          une chaîne de caractères
-     */
-    private static String convertStreamToString(InputStream input) {
-        Scanner s = new Scanner(input).useDelimiter("\n");
-        return s.hasNext() ? s.next() : "";
     }
 }

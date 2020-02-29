@@ -14,7 +14,12 @@
     <Button
         android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/search" />
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="15dp"
+        android:text="@string/search"
+        android:background="@drawable/radius_cat"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@color/bg"
+        android:fontFamily="@font/open_sans_semibold"/>
 </LinearLayout>
