@@ -22,6 +22,7 @@ public class SearchFragment extends Fragment {
         final View searchView = inflater.inflate(R.layout.search, container, false);
 
         Button searchBtn = searchView.findViewById(R.id.searchBtn);
+        Button random = searchView.findViewById(R.id.random);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,14 @@ public class SearchFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), SearchResultActivity.class);
                 intent.putExtra("query", inputUser);
+                startActivity(intent);
+            }
+        });
+
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RandomRecipe.class);
                 startActivity(intent);
             }
         });

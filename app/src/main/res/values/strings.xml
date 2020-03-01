@@ -9,4 +9,5 @@
     <string name="alt_img">Photo de la recette</string>
     <string name="instructions">Instructions :</string>
     <string name="ingredients">Ingrédients :</string>
+    <string name="random">Recette aléatoire</string>
 </resources>
