@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,9 +31,13 @@ public class SearchFragment extends Fragment {
                 SearchView inputField = searchView.findViewById(R.id.inputRecipe);
                 inputUser = inputField.getQuery().toString();
 
-                Intent intent = new Intent(getActivity(), SearchResultActivity.class);
-                intent.putExtra("query", inputUser);
-                startActivity(intent);
+                if (inputUser.length() > 0) {
+                    Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+                    intent.putExtra("query", inputUser);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), R.string.empty_query, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
