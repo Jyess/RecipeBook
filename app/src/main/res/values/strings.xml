@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecipeBook</string>
+    <string name="app_name">Recipe Book</string>
     <string name="numResults">Nombre de résultats : </string>
     <string name="search">Rechercher</string>
     <string name="recipeName">Nom de la recette</string>
@@ -10,4 +10,8 @@
     <string name="instructions">Instructions :</string>
     <string name="ingredients">Ingrédients :</string>
     <string name="random">Recette aléatoire</string>
+    <string name="credit">Application créée par Axel IGHIR et Mickaël DONOSO</string>
+    <string name="db_credit">La base de données des recettes est fournie par l\'API TheMealDB.</string>
+    <string name="icons_credit">Les icônes sont fournies par Icons8.com.</string>
+    <string name="alt_icon_app">Icone de l\'application</string>
 </resources>

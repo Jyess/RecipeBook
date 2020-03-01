@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/open_sans_bold"
                 android:text="Titre de la recette"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -69,10 +69,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:text="@string/ingredients"
                 android:fontFamily="@font/open_sans_semibold"
-                android:textSize="19dp"/>
+                android:textSize="19sp"/>
 
 
             <TableLayout
@@ -87,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:text="@string/instructions"
                 android:fontFamily="@font/open_sans_semibold"
-                android:textSize="19dp"/>
+                android:textSize="19sp"/>
 
             <TextView
                 android:id="@+id/instructions"
@@ -99,7 +99,7 @@
                 android:paddingHorizontal="15dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est placerat in egestas erat imperdiet sed euismod nisi porta. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Sagittis orci a scelerisque purus semper eget. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Lorem ipsum dolor sit amet consectetur adipiscing elit. In arcu cursus euismod quis viverra. Ipsum consequat nisl vel pretium lectus quam id. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. In pellentesque massa placerat duis ultricies. Maecenas accumsan lacus vel facilisis volutpat est velit. Elit ut aliquam purus sit amet luctus venenatis lectus magna."
                 android:fontFamily="@font/open_sans_light"
-                android:textSize="18dp"/>
+                android:textSize="18sp"/>
 
         </LinearLayout>
     </ScrollView>

@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.legend :
-                Intent intent = new Intent(this, LegendActivity.class);
+                Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
         }
 

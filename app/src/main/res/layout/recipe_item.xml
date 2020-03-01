@@ -32,7 +32,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Titre de la recette"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:fontFamily="@font/open_sans_bold"
             android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:id="@+id/origin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="start"
             android:text="Pays"
             android:textStyle="italic|bold" />
 
@@ -48,8 +48,8 @@
             android:id="@+id/category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/radius_cat"
             android:paddingHorizontal="10dp"
