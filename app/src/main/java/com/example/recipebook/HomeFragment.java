@@ -33,12 +33,6 @@ public class HomeFragment extends Fragment {
         TextView requestHolder = viewHome.findViewById(R.id.query);
         ImageView image = viewHome.findViewById(R.id.imageView);
 
-        //enlève les textes "votre recherche" et le nombre de résultats
-        LinearLayout searchLayout = viewHome.findViewById(R.id.search_layout);
-        LinearLayout resultLayout = viewHome.findViewById(R.id.result_layout);
-        searchLayout.setVisibility(View.GONE);
-        resultLayout.setVisibility(View.GONE);
-
         new DisplayRecipes(getContext(), loading, listView, numberResults, "", requestHolder, image).execute(URL);
 
         return viewHome;

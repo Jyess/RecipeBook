@@ -7,6 +7,7 @@
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_margin="10dp">
 
         <TextView
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:gravity="center"
         android:paddingVertical="5dp">
 
@@ -46,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="5dp"
-            android:visibility="invisible"
             android:text="00"/>
 
     </LinearLayout>

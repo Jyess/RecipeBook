@@ -12,4 +12,10 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:clickable="true"
         android:title="@string/search" />
+
+    <item
+        android:id="@+id/category_item"
+        android:icon="@drawable/ic_sort_black_24dp"
+        android:clickable="true"
+        android:title="@string/categ" />
 </menu>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,6 +36,12 @@ public class SearchResultActivity extends AppCompatActivity {
         TextView numberResults = findViewById(R.id.numberResults);
         TextView requestHolder = findViewById(R.id.query);
         ImageView image = findViewById(R.id.imageView);
+
+        //affiche les textes "votre recherche" et le nombre de résultats
+        LinearLayout searchLayout = findViewById(R.id.search_layout);
+        LinearLayout resultLayout = findViewById(R.id.result_layout);
+        searchLayout.setVisibility(View.VISIBLE);
+        resultLayout.setVisibility(View.VISIBLE);
 
         new DisplayRecipes(this, loading, listView, numberResults, request, requestHolder, image).execute(URL);
     }

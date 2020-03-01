@@ -54,14 +54,17 @@ public class MainActivity extends AppCompatActivity {
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment selectedFragment = null;
+                Fragment selectedFragment;
 
                 switch (menuItem.getItemId()) {
-                    case R.id.home:
-                        selectedFragment = new HomeFragment();
-                        break;
                     case R.id.search:
                         selectedFragment = new SearchFragment();
+                        break;
+                    case R.id.category_item:
+                        selectedFragment = new CategoryFragment();
+                        break;
+                    default:
+                        selectedFragment = new HomeFragment();
                         break;
                 }
 

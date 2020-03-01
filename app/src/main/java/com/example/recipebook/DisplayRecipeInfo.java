@@ -2,6 +2,7 @@ package com.example.recipebook;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
@@ -73,11 +74,9 @@ public class DisplayRecipeInfo extends AsyncTask<String, Void, String> {
                     String measure = item.getString("strMeasure" + j);
 
                     //quand il n'y a pas d'autres ingrédients, retourne parfois un string "null" ou du vide
+                    //certains ingrédients n'ont pas de mesures donc on ajoute quand meme le vide retourné
                     if (!ingredient.equals("null") && ingredient.length() > 0) {
                         ingredients.add(ingredient);
-                    }
-
-                    if (!measure.equals("null") && measure.length() > 0) {
                         measures.add(measure);
                     }
                 }

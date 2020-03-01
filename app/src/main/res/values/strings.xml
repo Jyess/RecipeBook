@@ -15,4 +15,8 @@
     <string name="icons_credit">Icônes : Icons8.</string>
     <string name="alt_icon_app">Icone de l\'application</string>
     <string name="empty_query">Votre recherche est vide.</string>
+    <string name="categ">Catégorie</string>
+    <string name="origin">Pays</string>
+    <string name="by_categ">Recettes par catégorie :</string>
+    <string name="by_country">Recettes par pays :</string>
 </resources>
