@@ -106,6 +106,7 @@ public class DisplayRecipes extends AsyncTask<String, Void, String> {
         this.loading.setVisibility(View.GONE);
 
         //affiche le nombre de résultats et la recherche
+        this.numberResults.setVisibility(View.VISIBLE);
         this.numberResults.setText(String.valueOf(this.listView.getCount()));
 
         //affiche la requete faite par l'utilisateur (sa recherche)
