@@ -1,8 +1,10 @@
 package com.example.recipebook;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
@@ -26,17 +28,19 @@ public class DisplayRecipeInfo extends AsyncTask<String, Void, String> {
     private TextView category;
     private LinearLayout ingredientsList;
     private TextView instructions;
+    private ImageView videoInstructions;
 
     private String imageText;
     private String titleText;
     private String categoryText;
     private String originText;
     private String instructionsText;
+    private String youtubeLink;
 
     private List<String> ingredients = new ArrayList<>();
     private List<String> measures = new ArrayList<>();
 
-    public DisplayRecipeInfo(Context context, ImageView image, TextView title, TextView origin, TextView category, LinearLayout ingredientsList, TextView instructions) {
+    public DisplayRecipeInfo(Context context, ImageView image, TextView title, TextView origin, TextView category, LinearLayout ingredientsList, TextView instructions, ImageView videoInstructions) {
         this.context = context;
         this.image = image;
         this.title = title;
@@ -44,6 +48,7 @@ public class DisplayRecipeInfo extends AsyncTask<String, Void, String> {
         this.category = category;
         this.ingredientsList = ingredientsList;
         this.instructions = instructions;
+        this.videoInstructions = videoInstructions;
     }
 
     protected void onPreExecute() {
@@ -68,6 +73,7 @@ public class DisplayRecipeInfo extends AsyncTask<String, Void, String> {
                 categoryText = item.getString("strCategory"); //catégorie de la recette
                 originText = item.getString("strArea"); //pays de la recette
                 instructionsText = item.getString("strInstructions"); //instructions de la recette
+                youtubeLink = item.getString("strYoutube"); //instructions vidéo sur Youtube
 
                 for (int j = 1; j < 21; j++) {
                     String ingredient = item.getString("strIngredient" + j);
@@ -96,6 +102,16 @@ public class DisplayRecipeInfo extends AsyncTask<String, Void, String> {
         this.category.setText(categoryText);
         Util.setBackgroundColor(this.category, this.context);
         this.instructions.setText(instructionsText);
+//        this.videoInstructions.setMovementMethod(LinkMovementMethod.getInstance());
+//        this.videoInstructions.setText(youtubeLink);
+
+        this.videoInstructions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink));
+                v.getContext().startActivity(intent);
+            }
+        });
 
         for (int i = 0; i < ingredients.size(); i++) {
             //une ligne qui contiendra l'ingrédient et sa mesure

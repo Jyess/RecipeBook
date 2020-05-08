@@ -1,17 +1,11 @@
 package com.example.recipebook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RandomRecipe extends AppCompatActivity {
 
@@ -28,7 +22,8 @@ public class RandomRecipe extends AppCompatActivity {
         TextView category = findViewById(R.id.category_info);
         LinearLayout list = findViewById(R.id.ingredients_list);
         TextView instructions = findViewById(R.id.instructions);
+        ImageView videoLink = findViewById(R.id.video);
 
-        new DisplayRecipeInfo(this, image, title, country, category, list, instructions).execute(API_URL);
+        new DisplayRecipeInfo(this, image, title, country, category, list, instructions, videoLink).execute(API_URL);
     }
 }
