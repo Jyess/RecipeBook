@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,8 +109,12 @@ public class DisplayRecipeInfo extends AsyncTask<String, Void, String> {
         this.videoInstructions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink));
-                v.getContext().startActivity(intent);
+                if (youtubeLink.length() > 0) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink));
+                    v.getContext().startActivity(intent);
+                } else {
+                    Toast.makeText(v.getContext(), "No video instructions available", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
