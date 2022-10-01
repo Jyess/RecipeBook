@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FDCF77</color>
+    <color name="colorPrimaryDark">#E3AC6B</color>
+    <color name="colorAccent">#E67066</color>
+    <color name="bg">#FFF3ED</color>
+    <color name="meat">#E46153</color>
+    <color name="meal">#B081C3</color>
+    <color name="misc">#bdc3c7</color>
+    <color name="fish">#5D9FCC</color>
+    <color name="green">#61C68C</color>
+    <color name="pasta">#E6CA58</color>
+    <color name="country">#34495e</color>
+    <color name="inactive">#95a5a6</color>
+</resources>

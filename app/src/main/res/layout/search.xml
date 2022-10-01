@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <SearchView
+        android:id="@+id/inputRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="@string/recipeName" />
+
+    <Button
+        android:id="@+id/searchBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="15dp"
+        android:text="@string/search"
+        android:background="@drawable/radius_cat"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@color/bg"
+        android:fontFamily="@font/open_sans_semibold"/>
+
+    <Button
+        android:id="@+id/random"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/radius_cat"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:fontFamily="@font/open_sans_semibold"
+        android:paddingHorizontal="15dp"
+        android:text="@string/random"
+        android:textColor="@color/bg" />
+</LinearLayout>

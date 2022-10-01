@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Recipe Book</string>
+    <string name="numResults">Number of results : </string>
+    <string name="search">Search</string>
+    <string name="recipeName">Recipe name</string>
+    <string name="results">Your search :</string>
+    <string name="home">Home</string>
+    <string name="about">About</string>
+    <string name="alt_img">Recipe photo</string>
+    <string name="instructions">Instructions :</string>
+    <string name="ingredients">Ingredients :</string>
+    <string name="random">Random recipe</string>
+    <string name="credit">Application created by Axel IGHIR</string>
+    <string name="db_credit">Database : TheMealDB.</string>
+    <string name="icons_credit">Icons : Icons8.</string>
+    <string name="alt_icon_app">Application icon</string>
+    <string name="empty_query">Your search is empty</string>
+    <string name="categ">Category</string>
+    <string name="origin">Country</string>
+    <string name="by_categ">Recipes by category :</string>
+    <string name="by_country">Recipes by country :</string>
+    <string name="video_instructions">Video instructions : </string>
+</resources>

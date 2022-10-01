@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="8dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/alt_img"
+        android:src="@drawable/ic_image_black_24dp"/>
+
+    <TextView
+        android:id="@+id/recipe_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Titre de la recette"
+            android:textSize="20sp"
+            android:fontFamily="@font/open_sans_bold"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/origin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Pays"
+            android:textStyle="italic|bold" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/radius_cat"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="Catégorie"
+            android:fontFamily="@font/open_sans_semibold"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</LinearLayout>
