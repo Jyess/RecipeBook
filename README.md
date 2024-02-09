@@ -30,8 +30,7 @@
 </details>
 
 ## About
-This is a project I made during my professional degree. I decided to make an Android application to browse through tons of recipes. I used the API
-[TheMealDB](https://www.themealdb.com/api.php). 
+This is a project I made during my professional degree. I decided to make an Android application to browse through tons of recipes. I used the [TheMealDB](https://www.themealdb.com/api.php) API. 
 
 ### Built with
 [![AndroidStudio][AndroidStudio-img]][AndroidStudio-url]
